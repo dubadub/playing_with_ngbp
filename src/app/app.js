@@ -1,4 +1,5 @@
 angular.module( 'ngBoilerplate', [
+  'restangular',
   'templates-app',
   'templates-common',
   'ngBoilerplate.home',
@@ -6,8 +7,11 @@ angular.module( 'ngBoilerplate', [
   'ui.router'
 ])
 
-.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
+.config( function myAppConfig ( $stateProvider, $urlRouterProvider, RestangularProvider ) {
   $urlRouterProvider.otherwise( '/home' );
+
+  RestangularProvider.setBaseUrl('http://api.cashcreators.honeycombits.com/stores/');
+  RestangularProvider.setDefaultRequestParams({ 'Authorization': 'Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==' });
 })
 
 .run( function run () {
