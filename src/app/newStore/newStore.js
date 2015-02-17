@@ -1,5 +1,6 @@
 
 angular.module( 'ngBoilerplate.newStore', [
+  'restangular',
   'ui.router'
 ])
 
@@ -16,7 +17,14 @@ angular.module( 'ngBoilerplate.newStore', [
   });
 })
 
-.controller( 'NewStoreCtrl', function NewStoreCtrl( $scope ) {
+.controller( 'NewStoreCtrl', function NewStoreCtrl( $scope, Restangular ) {
+  $scope.stores = Restangular.all('stores');
+
+  $scope.store = {};
+
+  $scope.saveNewStore = function () {
+    return $scope.stores.post($scope.store);
+  };
 })
 
 ;

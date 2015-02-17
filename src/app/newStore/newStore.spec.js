@@ -5,10 +5,39 @@
  * automatically.
  */
 describe( 'new store section', function() {
+  var NewStoreCtrl, $location, $scope;
+
+  var storeParams = { 'keyword': 'input keyword', 'name': 'input name' };
+
   beforeEach( module( 'ngBoilerplate.newStore' ) );
 
-  it( 'should have a dummy test', inject( function() {
-    expect( true ).toBeTruthy();
+  beforeEach(inject(function ($controller, _$httpBackend_, $rootScope, _Restangular_) {
+    httpBackend = _$httpBackend_;
+    httpBackend.expectPOST('/stores').respond(storeParams);
+    Restangular = _Restangular_;
+    scope = $rootScope.$new();
+    NewStoreCtrl = $controller('NewStoreCtrl', {
+        $httpBackend: httpBackend,
+        $scope: scope,
+        Restangular: Restangular
+      });
   }));
+
+  afterEach(function () {
+    httpBackend.verifyNoOutstandingExpectation();
+    httpBackend.verifyNoOutstandingRequest();
+  });
+
+  it('should create a new store ', function () {
+    scope.store = storeParams;
+
+    var store = scope.saveNewStore();
+    var resolvedValue;
+    store.then(function (response) {
+      resolvedValue = response;
+    });
+    httpBackend.flush();
+    expect(resolvedValue.name).toEqual('input name');
+  });
 });
 
