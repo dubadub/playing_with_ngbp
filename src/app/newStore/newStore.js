@@ -1,6 +1,7 @@
 
 angular.module( 'ngBoilerplate.newStore', [
   'restangular',
+  'ngSanitize',
   'ui.router'
 ])
 
@@ -23,7 +24,23 @@ angular.module( 'ngBoilerplate.newStore', [
   $scope.store = {};
 
   $scope.saveNewStore = function () {
-    return $scope.stores.post($scope.store);
+    var promise = $scope.stores.post({ data: $scope.store });
+
+    $scope.isProcessing = true;
+    $scope.isSuccessful = false;
+    delete $scope.error;
+
+    promise.then(function (response) {
+      $scope.store = {};
+      $scope.isSuccessful = true;
+    }, function (error) {
+      $scope.error = error.data;
+    })
+    .finally(function () {
+      $scope.isProcessing = false;
+    });
+
+    return promise;
   };
 })
 

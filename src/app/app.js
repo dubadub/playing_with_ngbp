@@ -10,8 +10,8 @@ angular.module( 'ngBoilerplate', [
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider, RestangularProvider ) {
   $urlRouterProvider.otherwise( '/home' );
 
-  RestangularProvider.setBaseUrl('http://api.cashcreators.honeycombits.com/stores/');
-  RestangularProvider.setDefaultRequestParams({ 'Authorization': 'Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==' });
+  RestangularProvider.setBaseUrl('http://api.cashcreators.honeycombits.com/');
+  RestangularProvider.setDefaultHeaders({ 'Authorization': 'Basic TWF0dDpOYWdnYXI=' });
 })
 
 .run( function run () {

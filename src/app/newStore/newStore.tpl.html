@@ -1,1 +1,33 @@
-<p>Hi there</p>
+<form class="form-horizontal" ng-submit="saveNewStore()">
+  <div class="form-group">
+    <label for="keyword" class="col-sm-2 control-label">Keyword</label>
+    <div class="col-sm-10">
+      <input type="text"
+        id="keyword"
+        class="form-control"
+        ng-model="store.keyword"
+        placeholder="Enter keyword...">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text"
+        id="name"
+        class="form-control"
+        ng-model="store.name"
+        placeholder="Enter name...">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="alert alert-success" ng-show="isSuccessful">New store has been created.</div>
+      <div class="alert alert-danger" ng-bind-html="error" ng-show="error"></div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default" ng-disabled="isProcessing">Create store</button>
+    </div>
+  </div>
+</form>
